@@ -44,28 +44,11 @@ class ChatApp extends React.Component {
   }
 
   render() {
-    //Sayfa 3 e 9 olarak bölündü.
     return (
-      <div>
-        
+      <div className="container">
         <h3>React Chat App</h3>
-        <div className="row"> 
-        <div className="col-md-3">
-        <div className="alert alert-success www" role="alert">
-          Kullanıcı adı
-        </div>
-        
-        </div>
-        
-        <div className="col-md-9 container">
         <Messages messages={this.state.messages} />
         <ChatInput onSend={this.sendHandler} />
-        </div>
-        </div>
-
-       
-        
-       
       </div>
     );
   }

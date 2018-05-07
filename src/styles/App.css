@@ -4,8 +4,8 @@ body {
 }
 
 html, body, #app, .container {
-  min-height: 90vh; /*100 değeri 90 a çekildi*/
-  max-height: 90vh; /*100 değeri 90 a çekildi*/
+  min-height: 100vh;
+  max-height: 100vh;
   max-width: 100%;
 }
 

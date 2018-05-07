@@ -33,10 +33,8 @@ class App extends React.Component {
 
     // Initial page load, show a simple login form
     return (
-      <div>
-      <h1 >React Instant Chat</h1>
       <form onSubmit={this.usernameSubmitHandler} className="username-container">
-        <div><h2>Deneme</h2></div>
+        <h1>React Instant Chat</h1>
         <div>
           <input
             type="text"
@@ -44,16 +42,8 @@ class App extends React.Component {
             placeholder="Enter a username..."
             required />
         </div>
-        <div>
-          <input  //Username'e benzer passwordhandeler yazıldı.
-            type="text"
-            onChange={this.passwordChangeHandler}
-            placeholder="Enter a Password..."
-            required />
-        </div>
         <input type="submit" value="Submit" />
       </form>
-      </div>
     );
   }
 
