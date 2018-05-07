@@ -18,6 +18,10 @@ class App extends React.Component {
     this.setState({ username: event.target.value });
   }
 
+  passwordChangeHandler(event) {    //Username'e benzer password handleri yazıldı.
+    this.setState({ password: event.target.value }); 
+  }
+
   usernameSubmitHandler(event) {
     event.preventDefault();
     this.setState({ submitted: true, username: this.state.username });
@@ -33,8 +37,12 @@ class App extends React.Component {
 
     // Initial page load, show a simple login form
     return (
+      <div>
+      <div return className="jumbotron text-center t" > 
+        <h1 >React Instant Chat</h1>
+      </div>
       <form onSubmit={this.usernameSubmitHandler} className="username-container">
-        <h1>React Instant Chat</h1>
+        <div><img src="/../foto2.png" className="rounded-circle fotos2" width="200" height="130"/></div>
         <div>
           <input
             type="text"
@@ -42,8 +50,16 @@ class App extends React.Component {
             placeholder="Enter a username..."
             required />
         </div>
+        <div>
+          <input  //Username'e benzer passwordhandeler yazıldı.
+            type="text"
+            onChange={this.passwordChangeHandler}
+            placeholder="Enter a Password..."
+            required />
+        </div>
         <input type="submit" value="Submit" />
       </form>
+      </div>
     );
   }
 

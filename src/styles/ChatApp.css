@@ -10,6 +10,7 @@
   padding: 20px;
 }
 
+
 h3 {
   text-align: center;
   padding: 20px 0;
@@ -42,7 +43,7 @@ h3 {
 }
 
 .message.from-me .message-body {
-  background-color: #af9570;
+  background-color: #26b414;
   color: white;
 }
 
@@ -64,4 +65,19 @@ h3 {
   font-size: 0.9rem;
   color: #999;
   margin-bottom: 5px;
+}
+.t{
+  background-color: AliceBlue;
+}
+.alert-success{
+  margin-top:15px;
+  margin-right:15px; 
+}
+.www{
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.fotos{
+  margin-right: 30px;
 }

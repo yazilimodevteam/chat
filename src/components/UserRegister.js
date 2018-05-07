@@ -1,4 +1,4 @@
-require('../styles/ChatApp.css');
+require('../styles/UserRegister.css');
 
 import React from 'react';
 import io from 'socket.io-client';
@@ -48,7 +48,8 @@ class ChatApp extends React.Component {
     return (
       <div>
         
-        <h3><img src="/../foto2.png" className="rounded-circle fotos" width="130" height="60"/>React Chat App</h3>        <div className="row"> 
+        <h3>React Chat App</h3>
+        <div className="row"> 
         <div className="col-md-3">
         <div className="alert alert-success www" role="alert">
           Kullanıcı adı
