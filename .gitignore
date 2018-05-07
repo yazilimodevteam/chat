@@ -6,3 +6,7 @@ coverage
 xunit.xml
 tests-xunit.xml
 .sonar
+.babelrc
+.editorconfig
+.eslintrc
+.yo-rc.json
