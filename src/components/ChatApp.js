@@ -7,13 +7,39 @@ import config from '../config';
 import Messages from './Messages';
 import ChatInput from './ChatInput';
 
+
 class ChatApp extends React.Component {
   socket = {};
   constructor(props) {
     super(props);
     this.state = { messages: [] };
     this.sendHandler = this.sendHandler.bind(this);
-    
+    const https = require('https');
+    https.get('http://192.168.0.104:4008/message', (resp) => {
+      let data = '';
+
+      // A chunk of data has been recieved.
+      resp.on('data', (chunk) => {
+        data += chunk;
+      });
+
+      // The whole response has been received. Print out the result.
+      resp.on('end', () => {
+        var jsonData = JSON.parse(data);
+        for (var i = 0; i < jsonData.rows.length; i++) {
+          var counter = jsonData.rows[i];
+          var message = {
+            message: counter.user,
+            username: counter.mesaj
+          };
+          console.log(counter.user + " , " + counter.mesaj );
+          this.addMessage(message);
+        }
+      });
+
+    }).on("error", (err) => {
+      console.log("Error: " + err.message);
+    });
     // Connect to the server
     this.socket = io(config.api, { query: `username=${props.username}` }).connect();
 
@@ -34,6 +60,8 @@ class ChatApp extends React.Component {
 
     messageObject.fromMe = true;
     this.addMessage(messageObject);
+
+
   }
 
   addMessage(message) {
