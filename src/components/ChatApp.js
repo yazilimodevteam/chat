@@ -14,29 +14,46 @@ class ChatApp extends React.Component {
     super(props);
     this.state = { messages: [] };
     this.sendHandler = this.sendHandler.bind(this);
+    
     const https = require('https');
-    https.get('http://192.168.0.104:4008/message', (resp) => {
+    https.get('http://localhost:4008/message', (resp) => {
       let data = '';
 
-      // A chunk of data has been recieved.
       resp.on('data', (chunk) => {
         data += chunk;
       });
 
-      // The whole response has been received. Print out the result.
+      
       resp.on('end', () => {
         var jsonData = JSON.parse(data);
+        var messages = [];
         for (var i = 0; i < jsonData.rows.length; i++) {
           var counter = jsonData.rows[i];
           var message = {
-            message: counter.user,
-            username: counter.mesaj
+            mesaj: counter.mesaj,
+            user: counter.user
           };
-          console.log(counter.user + " , " + counter.mesaj );
-          this.addMessage(message);
+          messages.push(message);
         }
-      });
+        messages = messages.reverse();
+        for (var i = 0; i < messages.length; i++) {
+          console.log(messages[i].mesaj + " , " + messages[i].user);
+          
+          var message = messages[i].mesaj;
 
+          const messageObject = {
+            username: messages[i].user,
+            message
+          };
+          if (this.props.username == messageObject.username)
+          {
+            messageObject.fromMe = true;
+          }
+          this.addMessage(messageObject);
+        }
+
+      });
+      
     }).on("error", (err) => {
       console.log("Error: " + err.message);
     });
@@ -74,25 +91,10 @@ class ChatApp extends React.Component {
   render() {
     //Sayfa 3 e 9 olarak bölündü.
     return (
-      <div>
-        
-        <h3><img src="/../foto2.png" className="rounded-circle fotos" width="130" height="60"/>React Chat App</h3>        <div className="row"> 
-        <div className="col-md-3">
-        <div className="alert alert-success www" role="alert">
-          Kullanıcı adı
-        </div>
-        
-        </div>
-        
-        <div className="col-md-9 container">
+      <div className="container">
+        <h3>React Chat App</h3>
         <Messages messages={this.state.messages} />
         <ChatInput onSend={this.sendHandler} />
-        </div>
-        </div>
-
-       
-        
-       
       </div>
     );
   }

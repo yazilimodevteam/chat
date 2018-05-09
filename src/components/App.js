@@ -3,29 +3,34 @@ require('../styles/Login.css');
 
 import React from 'react';
 import ChatApp from './ChatApp';
-import axios from 'axios'
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: '' };
+    this.state = { username: '',password:'' };
 
     // Bind 'this' to event handlers. React ES6 does not do this by default
     this.usernameChangeHandler = this.usernameChangeHandler.bind(this);
-    this.usernameSubmitHandler = this.usernameSubmitHandler.bind(this);
+    this.userpasswordChangeHandler = this.userpasswordChangeHandler.bind(this);
+    this.SubmitHandler = this.SubmitHandler.bind(this);
   }
 
   usernameChangeHandler(event) {
     this.setState({ username: event.target.value });
   }
-
-  passwordChangeHandler(event) {    //Username'e benzer password handleri yazıldı.
-    this.setState({ password: event.target.value }); 
+  userpasswordChangeHandler(event) {
+    this.setState({ password: event.target.value });
   }
 
-  usernameSubmitHandler(event) {
+  SubmitHandler(event) {
     event.preventDefault();
-    this.setState({ submitted: true, username: this.state.username });
+    const data = new FormData(event.target);
+
+    var cevap = fetch('http://localhost:4008/login', {
+      method: 'POST',
+      body: data,
+    });
+    this.setState({ submitted: true, username: this.state.username, password: this.state.password });
   }
 
   render() {
@@ -39,27 +44,27 @@ class App extends React.Component {
     // Initial page load, show a simple login form
     return (
       <div>
-      <div return className="jumbotron text-center t" > 
-        <h1 >React Instant Chat</h1>
-      </div>
-      <form onSubmit={this.usernameSubmitHandler} className="username-container">
-        <div><img src="/../foto2.png" className="rounded-circle fotos2" width="200" height="130"/></div>
-        <div>
-          <input
-            type="text"
-            onChange={this.usernameChangeHandler}
-            placeholder="Enter a username..."
-            required />
+        <div return className="jumbotron text-center t" > 
+          <h1 >React Instant Chat</h1>
         </div>
-        <div>
-          <input  //Username'e benzer passwordhandeler yazıldı.
-            type="text"
-            onChange={this.passwordChangeHandler}
-            placeholder="Enter a Password..."
-            required />
-        </div>
-        <input type="submit" value="Submit" />
-      </form>
+        <form onSubmit={this.SubmitHandler} className="username-container">
+          <div><img src="/../foto2.png" className="rounded-circle fotos2" width="200" height="130"/></div>
+          <div>
+            <input
+              type="text" name="user"
+              onChange={this.usernameChangeHandler}
+              placeholder="Enter a username..."
+              required />
+          </div>
+          <div>
+            <input
+              type="password" name="password"
+              onChange={this.userpasswordChangeHandler}
+              placeholder="Enter a password..."
+              required />
+          </div>
+          <input type="submit" value="Submit" />
+        </form>
       </div>
     );
   }
